@@ -15,6 +15,7 @@ Include CNR file format conversion, difference calculation and plotting.
 |            |             |
 |------------|-------------|
 | 2024-11-20 | Release 1.0 |
+| 2024-11-29 | Release 1.1 |
 
 # Examples
 ## Convert to CNR file
@@ -102,21 +103,14 @@ R24 -1.121621       NaN       NaN       NaN -0.724670       NaN       NaN       
 >>> cnrdiff.log2cnr(logflist, save=False, start=start, end=end, interval=interval, ele_cut=ele_cut)  # doctest: +SKIP
 >>> cnrdiff.cnr2dcnr(cnrflist, save=dcnrflist, mode='max', plot=True)  # doctest: +SKIP
 
-## Further, save to XLSX file
->>> dcnrflist1 = ['0002295h.log.cnr.dcnr', '0005295h.log.cnr.dcnr']  # doctest: +SKIP
->>> dcnrflist2 = ['0002295h.log.cnr.dcnr', '0041295h.log.cnr.dcnr']  # doctest: +SKIP
->>> xlsxfpath = '0002295h.log.cnr.dcnr.xlsx'  # doctest: +SKIP
->>> cnrdiff.dcnr2xlsx([dcnrflist1, dcnrflist2], xlsxfpath, mode='mean')  # doctest: +SKIP
-
 """
 
-import os
 import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 
 def log2cnr(
@@ -433,50 +427,3 @@ def cnr2dcnr(
             plt.show()
 
     return result
-
-
-def dcnr2xlsx(
-    read: list[list[str]] | list[dict[str, pd.DataFrame]], save: str, mode: str = "mean"
-) -> None:
-    dcnrss = []
-    for dcnrflist in read:
-        if isinstance(dcnrflist, dict):
-            dcnrss = read
-            break
-        else:
-            dcnrs = {}
-            for dcnrfpath in dcnrflist:
-                dcnrs[dcnrfpath] = pd.read_csv(dcnrfpath, index_col=0)
-            dcnrss.append(dcnrs)
-    with pd.ExcelWriter(save) as writer:
-        for sheetn, dcnrs in enumerate(dcnrss, 1):
-            buffer = []
-            for dcnrfpath, dcnr in dcnrs.items():
-                dcnrfname = os.path.basename(dcnrfpath).split(".")[0]
-                buffer.append(dcnr.agg(mode.lower()).rename(dcnrfname))
-            pd.concat(buffer, axis=1).to_excel(writer, sheet_name=f"NewSheet{sheetn}")
-
-
-def dcnr2html(
-    read: list[list[str]] | list[dict[str, pd.DataFrame]], save: str, mode: str = "mean"
-) -> None:
-    dcnrss = []
-    for dcnrflist in read:
-        if isinstance(dcnrflist, dict):
-            dcnrss = read
-            break
-        else:
-            dcnrs = {}
-            for dcnrfpath in dcnrflist:
-                dcnrs[dcnrfpath] = pd.read_csv(dcnrfpath, index_col=0)
-            dcnrss.append(dcnrs)
-    html = ""
-    for dcnrs in dcnrss:
-        buffer = []
-        for dcnrfpath, dcnr in dcnrs.items():
-            dcnrfname = os.path.basename(dcnrfpath).split(".")[0]
-            buffer.append(dcnr.agg(mode.lower()).rename(dcnrfname))
-        html += pd.concat(buffer, axis=1).to_html()
-        html += "<br>"
-    with open(save, "w") as fw:
-        fw.write(html)
