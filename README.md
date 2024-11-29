@@ -15,6 +15,7 @@ Include CNR file format conversion, difference calculation and plotting.
 | Date       | Version Info |
 |------------|--------------|
 | 2024-11-20 | Release 1.0  |
+| 2024-11-29 | Release 1.1  |
 
 # Examples
 ## Convert to CNR file
@@ -110,11 +111,4 @@ interval = 5  # doctest: +SKIP
 ele_cut = 20.0  # doctest: +SKIP
 cnrdiff.log2cnr(logflist, save=False, start=start, end=end, interval=interval, ele_cut=ele_cut)
 cnrdiff.cnr2dcnr(cnrflist, save=dcnrflist, mode='max', plot=True)
-```
-## Further, save to XLSX file
-```python
-dcnrflist1 = ['0002295h.log.cnr.dcnr', '0005295h.log.cnr.dcnr']
-dcnrflist2 = ['0002295h.log.cnr.dcnr', '0041295h.log.cnr.dcnr']
-xlsxfpath = '0002295h.log.cnr.dcnr.xlsx'
-cnrdiff.dcnr2xlsx([dcnrflist1, dcnrflist2], xlsxfpath, mode='mean')
 ```
