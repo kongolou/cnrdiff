@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>CNRDIFF V1.0</string>
+   <string>CNRDIFF V1.1</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>cnrdiff-logo.svg</normaloff>cnrdiff-logo.svg</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBoxInput">
@@ -34,6 +38,11 @@
        <width>561</width>
        <height>161</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
      </property>
     </widget>
     <widget class="QLabel" name="labelFileType">
@@ -114,7 +123,7 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>281</width>
+      <width>291</width>
       <height>171</height>
      </rect>
     </property>
@@ -160,7 +169,7 @@
       <string>Interval</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBoxCutOff">
+    <widget class="QCheckBox" name="checkBoxCutoff">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -178,9 +187,15 @@
       <rect>
        <x>100</x>
        <y>30</y>
-       <width>161</width>
+       <width>171</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="displayFormat">
+      <string>yyyy-MM-dd HH:mm:ss.zzz</string>
+     </property>
+     <property name="calendarPopup">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QDateTimeEdit" name="dateTimeEditEndTime">
@@ -188,9 +203,15 @@
       <rect>
        <x>100</x>
        <y>60</y>
-       <width>161</width>
+       <width>171</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="displayFormat">
+      <string>yyyy-MM-dd HH:mm:ss.zzz</string>
+     </property>
+     <property name="calendarPopup">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QDoubleSpinBox" name="doubleSpinBoxInterval">
@@ -198,28 +219,46 @@
       <rect>
        <x>170</x>
        <y>90</y>
-       <width>91</width>
+       <width>101</width>
        <height>31</height>
       </rect>
      </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="maximum">
+      <double>60.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>1.000000000000000</double>
+     </property>
     </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBoxCutOff">
+    <widget class="QDoubleSpinBox" name="doubleSpinBoxCutoff">
      <property name="geometry">
       <rect>
        <x>170</x>
        <y>120</y>
-       <width>91</width>
+       <width>101</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="decimals">
+      <number>3</number>
+     </property>
+     <property name="maximum">
+      <double>90.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>10.000000000000000</double>
      </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBoxOutput">
     <property name="geometry">
      <rect>
-      <x>320</x>
+      <x>330</x>
       <y>20</y>
-      <width>301</width>
+      <width>291</width>
       <height>171</height>
      </rect>
     </property>
@@ -230,7 +269,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>30</y>
+       <y>60</y>
        <width>101</width>
        <height>31</height>
       </rect>
@@ -242,7 +281,7 @@
     <widget class="QPushButton" name="pushButtonProcess">
      <property name="geometry">
       <rect>
-       <x>160</x>
+       <x>150</x>
        <y>90</y>
        <width>101</width>
        <height>31</height>
@@ -268,7 +307,7 @@
     <widget class="QCheckBox" name="checkBoxExportDCNR">
      <property name="geometry">
       <rect>
-       <x>40</x>
+       <x>150</x>
        <y>60</y>
        <width>101</width>
        <height>31</height>
@@ -278,43 +317,53 @@
       <string>Export DCNR</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBoxExportHTML">
-     <property name="geometry">
-      <rect>
-       <x>160</x>
-       <y>60</y>
-       <width>101</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Export HTML</string>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBoxExportXLSX">
-     <property name="geometry">
-      <rect>
-       <x>160</x>
-       <y>30</y>
-       <width>101</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Export XLSX</string>
-     </property>
-    </widget>
     <widget class="QProgressBar" name="progressBarProcess">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>130</y>
-       <width>221</width>
-       <height>21</height>
+       <x>20</x>
+       <y>120</y>
+       <width>251</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="value">
       <number>0</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelOutDir">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>30</y>
+       <width>51</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>OutDir:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEditOutDir">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>30</y>
+       <width>161</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButtonOutDir">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>30</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
      </property>
     </widget>
    </widget>
@@ -324,21 +373,21 @@
   <tabstop>checkBoxStartTime</tabstop>
   <tabstop>checkBoxEndTime</tabstop>
   <tabstop>checkBoxInterval</tabstop>
-  <tabstop>checkBoxCutOff</tabstop>
+  <tabstop>checkBoxCutoff</tabstop>
   <tabstop>dateTimeEditStartTime</tabstop>
   <tabstop>dateTimeEditEndTime</tabstop>
   <tabstop>doubleSpinBoxInterval</tabstop>
-  <tabstop>doubleSpinBoxCutOff</tabstop>
+  <tabstop>doubleSpinBoxCutoff</tabstop>
   <tabstop>comboBoxFileType</tabstop>
   <tabstop>comboBoxSolutionMode</tabstop>
   <tabstop>pushButtonAddFile</tabstop>
   <tabstop>pushButtonRemoveFile</tabstop>
   <tabstop>listViewInput</tabstop>
+  <tabstop>lineEditOutDir</tabstop>
+  <tabstop>pushButtonOutDir</tabstop>
   <tabstop>checkBoxExportCNR</tabstop>
   <tabstop>checkBoxExportDCNR</tabstop>
   <tabstop>checkBoxPlotDCNR</tabstop>
-  <tabstop>checkBoxExportXLSX</tabstop>
-  <tabstop>checkBoxExportHTML</tabstop>
   <tabstop>pushButtonProcess</tabstop>
  </tabstops>
  <resources/>
