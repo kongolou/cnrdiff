@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainwindowtBAEFP.ui'
+## Form generated from reading UI file 'mainwindowiqXCZV.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -9,7 +9,7 @@
 ################################################################################
 
 from PySide6.QtCore import QCoreApplication, QDateTime, QMetaObject, QRect, QSize
-from PySide6.QtGui import QFont, QIcon, QStandardItemModel, QStandardItem
+from PySide6.QtGui import QIcon, QStandardItem, QStandardItemModel
 from PySide6.QtWidgets import (
     QCheckBox,
     QComboBox,
@@ -50,30 +50,33 @@ class Ui_MainWindow(object):
         self.listViewInput = QListView(self.groupBoxInput)
         self.listViewInput.setObjectName("listViewInput")
         self.listViewInput.setGeometry(QRect(20, 70, 561, 161))
-        font = QFont()
-        font.setPointSize(11)
-        self.listViewInput.setFont(font)
-        self.labelFileType = QLabel(self.groupBoxInput)
-        self.labelFileType.setObjectName("labelFileType")
-        self.labelFileType.setGeometry(QRect(40, 30, 61, 31))
-        self.comboBoxFileType = QComboBox(self.groupBoxInput)
-        self.comboBoxFileType.setObjectName("comboBoxFileType")
-        self.comboBoxFileType.setGeometry(QRect(100, 30, 161, 31))
-        self.labelSolutionMode = QLabel(self.groupBoxInput)
-        self.labelSolutionMode.setObjectName("labelSolutionMode")
-        self.labelSolutionMode.setGeometry(QRect(290, 30, 81, 31))
-        self.comboBoxSolutionMode = QComboBox(self.groupBoxInput)
-        self.comboBoxSolutionMode.setObjectName("comboBoxSolutionMode")
-        self.comboBoxSolutionMode.setGeometry(QRect(380, 30, 81, 31))
+        self.labelInputFileType = QLabel(self.groupBoxInput)
+        self.labelInputFileType.setObjectName("labelInputFileType")
+        self.labelInputFileType.setGeometry(QRect(20, 30, 91, 31))
+        self.comboBoxInputFileType = QComboBox(self.groupBoxInput)
+        self.comboBoxInputFileType.setObjectName("comboBoxInputFileType")
+        self.comboBoxInputFileType.setGeometry(QRect(110, 30, 131, 31))
+        self.labelHow = QLabel(self.groupBoxInput)
+        self.labelHow.setObjectName("labelHow")
+        self.labelHow.setGeometry(QRect(260, 30, 31, 31))
+        self.comboBoxHow = QComboBox(self.groupBoxInput)
+        self.comboBoxHow.setObjectName("comboBoxHow")
+        self.comboBoxHow.setGeometry(QRect(290, 30, 81, 31))
         self.pushButtonAddFile = QPushButton(self.groupBoxInput)
         self.pushButtonAddFile.setObjectName("pushButtonAddFile")
-        self.pushButtonAddFile.setGeometry(QRect(490, 30, 31, 31))
+        self.pushButtonAddFile.setGeometry(QRect(510, 30, 31, 31))
         self.pushButtonRemoveFile = QPushButton(self.groupBoxInput)
         self.pushButtonRemoveFile.setObjectName("pushButtonRemoveFile")
-        self.pushButtonRemoveFile.setGeometry(QRect(530, 30, 31, 31))
+        self.pushButtonRemoveFile.setGeometry(QRect(550, 30, 31, 31))
+        self.comboBoxBy = QComboBox(self.groupBoxInput)
+        self.comboBoxBy.setObjectName("comboBoxBy")
+        self.comboBoxBy.setGeometry(QRect(410, 30, 81, 31))
+        self.labelBy = QLabel(self.groupBoxInput)
+        self.labelBy.setObjectName("labelBy")
+        self.labelBy.setGeometry(QRect(390, 30, 21, 31))
         self.groupBoxOptions = QGroupBox(self.centralwidget)
         self.groupBoxOptions.setObjectName("groupBoxOptions")
-        self.groupBoxOptions.setGeometry(QRect(20, 20, 291, 171))
+        self.groupBoxOptions.setGeometry(QRect(20, 20, 321, 171))
         self.checkBoxStartTime = QCheckBox(self.groupBoxOptions)
         self.checkBoxStartTime.setObjectName("checkBoxStartTime")
         self.checkBoxStartTime.setGeometry(QRect(20, 30, 81, 31))
@@ -83,68 +86,78 @@ class Ui_MainWindow(object):
         self.checkBoxInterval = QCheckBox(self.groupBoxOptions)
         self.checkBoxInterval.setObjectName("checkBoxInterval")
         self.checkBoxInterval.setGeometry(QRect(20, 90, 151, 31))
-        self.checkBoxCutoff = QCheckBox(self.groupBoxOptions)
-        self.checkBoxCutoff.setObjectName("checkBoxCutoff")
-        self.checkBoxCutoff.setGeometry(QRect(20, 120, 151, 31))
+        self.checkBoxElevationCutoff = QCheckBox(self.groupBoxOptions)
+        self.checkBoxElevationCutoff.setObjectName("checkBoxElevationCutoff")
+        self.checkBoxElevationCutoff.setGeometry(QRect(20, 120, 151, 31))
         self.dateTimeEditStartTime = QDateTimeEdit(self.groupBoxOptions)
         self.dateTimeEditStartTime.setObjectName("dateTimeEditStartTime")
-        self.dateTimeEditStartTime.setGeometry(QRect(100, 30, 171, 31))
-        self.dateTimeEditStartTime.setCalendarPopup(True)
+        self.dateTimeEditStartTime.setGeometry(QRect(100, 30, 201, 31))
+        self.dateTimeEditStartTime.setCalendarPopup(False)
         self.dateTimeEditEndTime = QDateTimeEdit(self.groupBoxOptions)
         self.dateTimeEditEndTime.setObjectName("dateTimeEditEndTime")
-        self.dateTimeEditEndTime.setGeometry(QRect(100, 60, 171, 31))
-        self.dateTimeEditEndTime.setCalendarPopup(True)
+        self.dateTimeEditEndTime.setGeometry(QRect(100, 60, 201, 31))
+        self.dateTimeEditEndTime.setCalendarPopup(False)
         self.doubleSpinBoxInterval = QDoubleSpinBox(self.groupBoxOptions)
         self.doubleSpinBoxInterval.setObjectName("doubleSpinBoxInterval")
-        self.doubleSpinBoxInterval.setGeometry(QRect(170, 90, 101, 31))
+        self.doubleSpinBoxInterval.setGeometry(QRect(200, 90, 101, 31))
         self.doubleSpinBoxInterval.setDecimals(3)
         self.doubleSpinBoxInterval.setMaximum(60.000000000000000)
         self.doubleSpinBoxInterval.setValue(1.000000000000000)
-        self.doubleSpinBoxCutoff = QDoubleSpinBox(self.groupBoxOptions)
-        self.doubleSpinBoxCutoff.setObjectName("doubleSpinBoxCutoff")
-        self.doubleSpinBoxCutoff.setGeometry(QRect(170, 120, 101, 31))
-        self.doubleSpinBoxCutoff.setDecimals(3)
-        self.doubleSpinBoxCutoff.setMaximum(90.000000000000000)
-        self.doubleSpinBoxCutoff.setSingleStep(10.000000000000000)
+        self.doubleSpinBoxElevationCutoff = QDoubleSpinBox(self.groupBoxOptions)
+        self.doubleSpinBoxElevationCutoff.setObjectName("doubleSpinBoxElevationCutoff")
+        self.doubleSpinBoxElevationCutoff.setGeometry(QRect(200, 120, 101, 31))
+        self.doubleSpinBoxElevationCutoff.setDecimals(3)
+        self.doubleSpinBoxElevationCutoff.setMaximum(90.000000000000000)
+        self.doubleSpinBoxElevationCutoff.setSingleStep(10.000000000000000)
         self.groupBoxOutput = QGroupBox(self.centralwidget)
         self.groupBoxOutput.setObjectName("groupBoxOutput")
-        self.groupBoxOutput.setGeometry(QRect(330, 20, 291, 171))
+        self.groupBoxOutput.setGeometry(QRect(350, 20, 271, 171))
         self.checkBoxExportCNR = QCheckBox(self.groupBoxOutput)
         self.checkBoxExportCNR.setObjectName("checkBoxExportCNR")
-        self.checkBoxExportCNR.setGeometry(QRect(40, 60, 101, 31))
-        self.pushButtonProcess = QPushButton(self.groupBoxOutput)
-        self.pushButtonProcess.setObjectName("pushButtonProcess")
-        self.pushButtonProcess.setGeometry(QRect(150, 90, 101, 31))
+        self.checkBoxExportCNR.setGeometry(QRect(20, 60, 101, 31))
         self.checkBoxPlotDCNR = QCheckBox(self.groupBoxOutput)
         self.checkBoxPlotDCNR.setObjectName("checkBoxPlotDCNR")
-        self.checkBoxPlotDCNR.setGeometry(QRect(40, 90, 101, 31))
+        self.checkBoxPlotDCNR.setGeometry(QRect(150, 60, 101, 31))
         self.checkBoxExportDCNR = QCheckBox(self.groupBoxOutput)
         self.checkBoxExportDCNR.setObjectName("checkBoxExportDCNR")
-        self.checkBoxExportDCNR.setGeometry(QRect(150, 60, 101, 31))
-        self.progressBarProcess = QProgressBar(self.groupBoxOutput)
-        self.progressBarProcess.setObjectName("progressBarProcess")
-        self.progressBarProcess.setGeometry(QRect(20, 120, 251, 31))
-        self.progressBarProcess.setValue(0)
+        self.checkBoxExportDCNR.setGeometry(QRect(20, 90, 101, 31))
         self.labelOutDir = QLabel(self.groupBoxOutput)
         self.labelOutDir.setObjectName("labelOutDir")
         self.labelOutDir.setGeometry(QRect(20, 30, 51, 31))
         self.lineEditOutDir = QLineEdit(self.groupBoxOutput)
         self.lineEditOutDir.setObjectName("lineEditOutDir")
-        self.lineEditOutDir.setGeometry(QRect(70, 30, 161, 31))
+        self.lineEditOutDir.setGeometry(QRect(70, 30, 141, 31))
         self.pushButtonOutDir = QPushButton(self.groupBoxOutput)
         self.pushButtonOutDir.setObjectName("pushButtonOutDir")
-        self.pushButtonOutDir.setGeometry(QRect(240, 30, 31, 31))
+        self.pushButtonOutDir.setGeometry(QRect(220, 30, 31, 31))
+        self.checkBoxExportXLSX = QCheckBox(self.groupBoxOutput)
+        self.checkBoxExportXLSX.setObjectName("checkBoxExportXLSX")
+        self.checkBoxExportXLSX.setGeometry(QRect(150, 90, 101, 31))
+        self.progressBarProcess = QProgressBar(self.groupBoxOutput)
+        self.progressBarProcess.setObjectName("progressBarProcess")
+        self.progressBarProcess.setGeometry(QRect(20, 120, 141, 31))
+        self.progressBarProcess.setMaximum(100)
+        self.progressBarProcess.setValue(0)
+        self.progressBarProcess.setTextVisible(False)
+        self.pushButtonProcess = QPushButton(self.groupBoxOutput)
+        self.pushButtonProcess.setObjectName("pushButtonProcess")
+        self.pushButtonProcess.setGeometry(QRect(170, 120, 81, 31))
         MainWindow.setCentralWidget(self.centralwidget)
         QWidget.setTabOrder(self.checkBoxStartTime, self.checkBoxEndTime)
         QWidget.setTabOrder(self.checkBoxEndTime, self.checkBoxInterval)
-        QWidget.setTabOrder(self.checkBoxInterval, self.checkBoxCutoff)
-        QWidget.setTabOrder(self.checkBoxCutoff, self.dateTimeEditStartTime)
+        QWidget.setTabOrder(self.checkBoxInterval, self.checkBoxElevationCutoff)
+        QWidget.setTabOrder(self.checkBoxElevationCutoff, self.dateTimeEditStartTime)
         QWidget.setTabOrder(self.dateTimeEditStartTime, self.dateTimeEditEndTime)
         QWidget.setTabOrder(self.dateTimeEditEndTime, self.doubleSpinBoxInterval)
-        QWidget.setTabOrder(self.doubleSpinBoxInterval, self.doubleSpinBoxCutoff)
-        QWidget.setTabOrder(self.doubleSpinBoxCutoff, self.comboBoxFileType)
-        QWidget.setTabOrder(self.comboBoxFileType, self.comboBoxSolutionMode)
-        QWidget.setTabOrder(self.comboBoxSolutionMode, self.pushButtonAddFile)
+        QWidget.setTabOrder(
+            self.doubleSpinBoxInterval, self.doubleSpinBoxElevationCutoff
+        )
+        QWidget.setTabOrder(
+            self.doubleSpinBoxElevationCutoff, self.comboBoxInputFileType
+        )
+        QWidget.setTabOrder(self.comboBoxInputFileType, self.comboBoxHow)
+        QWidget.setTabOrder(self.comboBoxHow, self.comboBoxBy)
+        QWidget.setTabOrder(self.comboBoxBy, self.pushButtonAddFile)
         QWidget.setTabOrder(self.pushButtonAddFile, self.pushButtonRemoveFile)
         QWidget.setTabOrder(self.pushButtonRemoveFile, self.listViewInput)
         QWidget.setTabOrder(self.listViewInput, self.lineEditOutDir)
@@ -152,11 +165,17 @@ class Ui_MainWindow(object):
         QWidget.setTabOrder(self.pushButtonOutDir, self.checkBoxExportCNR)
         QWidget.setTabOrder(self.checkBoxExportCNR, self.checkBoxExportDCNR)
         QWidget.setTabOrder(self.checkBoxExportDCNR, self.checkBoxPlotDCNR)
-        QWidget.setTabOrder(self.checkBoxPlotDCNR, self.pushButtonProcess)
+        QWidget.setTabOrder(self.checkBoxPlotDCNR, self.checkBoxExportXLSX)
+        QWidget.setTabOrder(self.checkBoxExportXLSX, self.pushButtonProcess)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
 
         # my code begin
-        self.comboBoxFileType.addItems(["BNC QC LOG", "RINEX V3 OBS"])
-        self.comboBoxSolutionMode.addItems(["Mean", "Max"])
+        self.comboBoxInputFileType.addItems(["RINEX V3 OBS", "BNC QC LOG"])
+        self.comboBoxHow.addItems(["Mean", "Max"])
+        self.comboBoxBy.addItems(["SYS", "PRN"])
         self.dateTimeEditStartTime.setDateTime(QDateTime.currentDateTime())
         self.dateTimeEditEndTime.setDateTime(QDateTime.currentDateTime())
         self.lineEditOutDir.setText(os.path.expanduser("~"))
@@ -172,35 +191,32 @@ class Ui_MainWindow(object):
         self.checkBoxStartTime.toggled.connect(self.on_checkBoxStartTime_toggled)
         self.checkBoxEndTime.toggled.connect(self.on_checkBoxEndTime_toggled)
         self.checkBoxInterval.toggled.connect(self.on_checkBoxInterval_toggled)
-        self.checkBoxCutoff.toggled.connect(self.on_checkBoxCutOff_toggled)
+        self.checkBoxElevationCutoff.toggled.connect(
+            self.on_checkBoxElevationCutoff_toggled
+        )
 
         # my code end
-
-        self.retranslateUi(MainWindow)
-
-        QMetaObject.connectSlotsByName(MainWindow)
 
     # setupUi
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(
-            QCoreApplication.translate("MainWindow", "CNRDIFF V1.1", None)
+            QCoreApplication.translate("MainWindow", "CNRDIFF V1.2", None)
         )
         self.groupBoxInput.setTitle(
             QCoreApplication.translate("MainWindow", "Input", None)
         )
-        self.labelFileType.setText(
-            QCoreApplication.translate("MainWindow", "File Type", None)
+        self.labelInputFileType.setText(
+            QCoreApplication.translate("MainWindow", "Input File Type", None)
         )
-        self.labelSolutionMode.setText(
-            QCoreApplication.translate("MainWindow", "Solution Mode", None)
-        )
+        self.labelHow.setText(QCoreApplication.translate("MainWindow", "How", None))
         self.pushButtonAddFile.setText(
             QCoreApplication.translate("MainWindow", "+", None)
         )
         self.pushButtonRemoveFile.setText(
             QCoreApplication.translate("MainWindow", "-", None)
         )
+        self.labelBy.setText(QCoreApplication.translate("MainWindow", "By", None))
         self.groupBoxOptions.setTitle(
             QCoreApplication.translate("MainWindow", "Options", None)
         )
@@ -213,8 +229,8 @@ class Ui_MainWindow(object):
         self.checkBoxInterval.setText(
             QCoreApplication.translate("MainWindow", "Interval", None)
         )
-        self.checkBoxCutoff.setText(
-            QCoreApplication.translate("MainWindow", "Elevation angle cut-off", None)
+        self.checkBoxElevationCutoff.setText(
+            QCoreApplication.translate("MainWindow", "Elevation Cut-off", None)
         )
         self.dateTimeEditStartTime.setDisplayFormat(
             QCoreApplication.translate("MainWindow", "yyyy-MM-dd HH:mm:ss.zzz", None)
@@ -228,9 +244,6 @@ class Ui_MainWindow(object):
         self.checkBoxExportCNR.setText(
             QCoreApplication.translate("MainWindow", "Export CNR", None)
         )
-        self.pushButtonProcess.setText(
-            QCoreApplication.translate("MainWindow", "Process", None)
-        )
         self.checkBoxPlotDCNR.setText(
             QCoreApplication.translate("MainWindow", "Plot DCNR", None)
         )
@@ -238,10 +251,16 @@ class Ui_MainWindow(object):
             QCoreApplication.translate("MainWindow", "Export DCNR", None)
         )
         self.labelOutDir.setText(
-            QCoreApplication.translate("MainWindow", "OutDir:", None)
+            QCoreApplication.translate("MainWindow", "OutDir", None)
         )
         self.pushButtonOutDir.setText(
             QCoreApplication.translate("MainWindow", "...", None)
+        )
+        self.checkBoxExportXLSX.setText(
+            QCoreApplication.translate("MainWindow", "Export XLSX", None)
+        )
+        self.pushButtonProcess.setText(
+            QCoreApplication.translate("MainWindow", "Process", None)
         )
 
     # retranslateUi
@@ -254,7 +273,8 @@ class Ui_MainWindow(object):
         self.standardItemModelInput.appendRow(QStandardItem(fpath))
 
     def on_pushButtonRemoveFile_clicked(self):
-        self.standardItemModelInput.removeRows(self.listViewInput.selectedIndexes())
+        for idx in self.listViewInput.selectedIndexes():
+            self.standardItemModelInput.removeRow(idx.row())
 
     def on_pushButtonOutDir_clicked(self):
         self.lineEditOutDir.setText(
@@ -265,7 +285,7 @@ class Ui_MainWindow(object):
 
     def on_pushButtonProcess_clicked(self):
         try:
-            self.progressBarProcess.setValue(20)
+            self.progressBarProcess.setValue(30)
 
             start = (
                 self.dateTimeEditStartTime.dateTime().toPython()
@@ -283,8 +303,8 @@ class Ui_MainWindow(object):
                 else None
             )
             ele_cut = (
-                self.doubleSpinBoxCutoff.value()
-                if self.checkBoxCutoff.isChecked()
+                self.doubleSpinBoxElevationCutoff.value()
+                if self.checkBoxElevationCutoff.isChecked()
                 else 0.0
             )
 
@@ -296,34 +316,49 @@ class Ui_MainWindow(object):
                     os.path.join(self.lineEditOutDir.text(), inpfname + ".cnr")
                 )
                 dcnrflist.append(
-                    os.path.join(self.lineEditOutDir.text(), inpfname + ".dcnr")
+                    os.path.join(self.lineEditOutDir.text(), inpfname + ".cnr.dcnr")
                 )
+
+            xlsxfpath = os.path.join(
+                self.lineEditOutDir.text(), "summary.cnr.dcnr.xlsx"
+            )
 
             savecnr = cnrflist if self.checkBoxExportCNR.isChecked() else False
             savedcnr = dcnrflist if self.checkBoxExportDCNR.isChecked() else False
             plotdcnr = self.checkBoxPlotDCNR.isChecked()
+            savexlsx = self.checkBoxExportXLSX.isChecked()
 
-            inpftype = self.comboBoxFileType.currentText()
-            slnmode = self.comboBoxSolutionMode.currentText()
+            inpftype = self.comboBoxInputFileType.currentText()
+            how = self.comboBoxHow.currentText()
+            by = self.comboBoxBy.currentText()
+
             match inpftype:
-                case "BNC QC LOG":
-                    cnr = cnrdiff.log2cnr(
-                        inpflist, savecnr, start, end, interval, ele_cut
-                    )
                 case "RINEX V3 OBS":
                     cnr = cnrdiff.rnx2cnr(
                         inpflist, savecnr, start, end, interval, ele_cut
                     )
+                case "BNC QC LOG":
+                    cnr = cnrdiff.log2cnr(
+                        inpflist, savecnr, start, end, interval, ele_cut
+                    )
 
-            self.progressBarProcess.setValue(50)
+            dcnr = cnrdiff.cnr2dcnr(cnr, savedcnr, plotdcnr, how.upper(), by.upper())
 
-            cnrdiff.cnr2dcnr(cnr, savedcnr, slnmode, plotdcnr)
+            if savexlsx:
+                cnrdiff.dcnr2xlsx([dcnr], xlsxfpath)
 
-            self.progressBarProcess.setValue(100)
-
+        except KeyError as ke:
+            self.progressBarProcess.reset()
+            QMessageBox.warning(None, "Error", f"KeyError: {str(ke)}")
+        except ValueError as ve:
+            self.progressBarProcess.reset()
+            QMessageBox.warning(None, "Error", f"ValueError: {str(ve)}")
         except Exception as e:
-            QMessageBox.warning(None, "Error", str(e))
-            self.progressBarProcess.setValue(0)
+            self.progressBarProcess.reset()
+            QMessageBox.warning(None, "Error", f"Error: {str(e)}")
+        else:
+            self.progressBarProcess.setValue(100)
+            QMessageBox.information(None, "Success", "Process completed successfully.")
 
     def on_checkBoxStartTime_toggled(self, checked):
         self.dateTimeEditStartTime.setEnabled(checked)
@@ -334,7 +369,7 @@ class Ui_MainWindow(object):
     def on_checkBoxInterval_toggled(self, checked):
         self.doubleSpinBoxInterval.setEnabled(checked)
 
-    def on_checkBoxCutOff_toggled(self, checked):
-        self.doubleSpinBoxCutoff.setEnabled(checked)
+    def on_checkBoxElevationCutoff_toggled(self, checked):
+        self.doubleSpinBoxElevationCutoff.setEnabled(checked)
 
     # my code end

@@ -16,6 +16,7 @@ Include CNR file format conversion, difference calculation and plotting.
 |------------|-------------|
 | 2024-11-20 | Release 1.0 |
 | 2024-11-29 | Release 1.1 |
+| 2024-12-05 | Release 1.2 |
 
 # Examples
 ## Convert to CNR file
@@ -101,16 +102,22 @@ R24 -1.121621       NaN       NaN       NaN -0.724670       NaN       NaN       
 >>> interval = 5  # doctest: +SKIP
 >>> ele_cut = 20.0  # doctest: +SKIP
 >>> cnrdiff.log2cnr(logflist, save=False, start=start, end=end, interval=interval, ele_cut=ele_cut)  # doctest: +SKIP
->>> cnrdiff.cnr2dcnr(cnrflist, save=dcnrflist, mode='max', plot=True)  # doctest: +SKIP
+>>> cnrdiff.cnr2dcnr(cnrflist, save=dcnrflist, plot=True, how='MAX', by='SYS')  # doctest: +SKIP
 
+## Convert DCNR to XLSX file
+>>> dcnrflist1 = ['0002295h.log.cnr.dcnr', '0005295h.log.cnr.dcnr', '0041295h.log.cnr.dcnr']  # doctest: +SKIP
+>>> dcnrflist2 = ['11121980.csv', '11131980.csv']
+>>> cnrdiff.dcnr2xlsx([dcnrflist1, dcnrflist2], save='summary.xlsx')  # doctest: +SKIP
 """
 
 import datetime
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
+from typing import Literal
 
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 
 def log2cnr(
@@ -358,72 +365,103 @@ def rnx2cnr(
 def cnr2dcnr(
     read: list[str] | dict[str, pd.DataFrame],
     save: list[str] | bool = False,
-    mode: str = "mean",
-    plot: bool = False,
+    plot: list[str] | bool = False,
+    how: Literal["MEAN", "MAX"] = "MEAN",
+    by: Literal["PRN", "SYS"] = "PRN",
 ) -> dict[str, pd.DataFrame]:
     """根据提供的 CNR 文件或缓存计算相应载噪比的差值.
 
     Parameters:
         read (list[str] | dict[str, pd.DataFrame]): 需要读取的 CNR 文件列表或 CNR 文件数据缓存.
         save (list[str] | bool, optional): 需要保存的 DCNR 文件列表或是否保存.
-        mode (str, optional): 计算差值的方式, 可选 "mean" 或 "max".
-        plot (bool, optional): 是否绘制差值图.
+        plot (list[str] | bool, optional): 需要绘图的 DCNR 文件列表或是否绘图.
+        how (Literal["MEAN", "MAX"], optional): 计算差值的方式.
+        by (Literal["PRN", "SYS"], optional): 计算差值的方式.
 
     Returns:
         dict[str, pd.DataFrame]: DCNR 文件数据缓存.
-
-    Raises:
-        ValueError: 如果 mode 不是 "mean" 或 "max".
     """
     if len(read) == 0:
         return {}
-
-    raw_cnrs = {}
+    # get raw dcnr
     if isinstance(read, dict):
-        raw_cnrs = read
+        raw_cnr = read
     else:
+        raw_cnr = {}
         for cnrfpath in read:
-            raw_cnrs[cnrfpath] = pd.read_csv(cnrfpath, header=None)
-
-    dcnrflist = []
-    pivoted_cnrs = []
-    for cnrfpath, raw_cnr in raw_cnrs.items():
-        raw_cnr.rename(columns={2: "PRN"}, inplace=True)
-        buffer = []
-        for j in range(4, raw_cnr.shape[1], 2):
-            pivoted_cnr = raw_cnr.pivot(index=["PRN", 0], columns=j, values=(j + 1))
-            buffer.append(pivoted_cnr)
-        match mode.lower():
-            case "mean":
-                pivoted_cnr = (
-                    pd.concat(buffer).groupby(level="PRN").mean(numeric_only=True)
-                )
-            case "max":
-                pivoted_cnr = (
-                    pd.concat(buffer).groupby(level="PRN").max(numeric_only=True)
-                )
-            case _:
-                raise ValueError(f"Unknown mode: {mode}.")
-        pivoted_cnr.dropna(axis=1, how="all", inplace=True)
-        pivoted_cnrs.append(pivoted_cnr)
-        dcnrflist.append(cnrfpath + ".dcnr")
-
-    result = {}
-    result[dcnrflist[0]] = pivoted_cnrs[0]
-    for key, value in zip(dcnrflist[1:], pivoted_cnrs[1:]):
-        result[key] = value - pivoted_cnrs[0]
-
+            raw_cnr[cnrfpath] = pd.read_csv(cnrfpath, header=None)
+    # get pivoted dcnr
+    pivoted_cnr = []
+    for cnrfdata in raw_cnr.values():
+        match by:
+            case "PRN":
+                cnrfdata.rename(columns={2: by}, inplace=True)
+                buffer = []
+                for i in range(4, cnrfdata.shape[1], 2):
+                    pc_i = cnrfdata.pivot(index=[by, 0], columns=i, values=(i + 1))
+                    buffer.append(pc_i)
+            case "SYS":
+                cnrfdata[1] = cnrfdata[2].str[0]
+                cnrfdata.rename(columns={1: by}, inplace=True)
+                buffer = []
+                for i in range(4, cnrfdata.shape[1], 2):
+                    pc_i = cnrfdata.pivot(index=[by, 2, 0], columns=i, values=(i + 1))
+                    buffer.append(pc_i)
+        match how:
+            case "MEAN":
+                pc = pd.concat(buffer).groupby(level=by).mean(numeric_only=True)
+            case "MAX":
+                pc = pd.concat(buffer).groupby(level=by).max(numeric_only=True)
+        pc.dropna(axis=1, how="all", inplace=True)
+        pivoted_cnr.append(pc)
+    # calculate and save dcnr
+    dcnr = {}
     if not isinstance(save, bool):
-        for dcnr, dcnrfpath in zip(result.values(), save):
-            dcnr.to_csv(dcnrfpath)
+        dcnr[save[0]] = pivoted_cnr[0]
+        for i, pc in enumerate(pivoted_cnr[1:], 1):
+            dcnr[save[i]] = pc - pivoted_cnr[0]
+        for dcnrfpath, dcnrfdata in dcnr.items():
+            dcnrfdata.to_csv(dcnrfpath)
     elif save:
-        for dcnrfpath, dcnr in result.items():
-            dcnr.to_csv(dcnrfpath)
-
-    if plot:
-        for key, value in result.items():
-            value.plot(kind="bar", title=key)
+        save = [f"{cnrfpath}.dcnr" for cnrfpath in raw_cnr.keys()]
+        dcnr[save[0]] = pivoted_cnr[0]
+        for i, pc in enumerate(pivoted_cnr[1:], 1):
+            dcnr[save[i]] = pc - pivoted_cnr[0]
+        for dcnrfpath, dcnrfdata in dcnr.items():
+            dcnrfdata.to_csv(dcnrfpath)
+    else:
+        save = [f"{cnrfpath}.dcnr" for cnrfpath in raw_cnr.keys()]
+        dcnr[save[0]] = pivoted_cnr[0]
+        for i, pc in enumerate(pivoted_cnr[1:], 1):
+            dcnr[save[i]] = pc - pivoted_cnr[0]
+    # plot dcnr
+    if not isinstance(plot, bool):
+        for dcnrfpath, dcnrfdata in dcnr.items():
+            dcnrfdata.plot(king="bar", title=dcnrfpath)
+            plt.savefig(dcnrfpath + ".png")
+    elif plot:
+        for dcnrfpath, dcnrfdata in dcnr.items():
+            dcnrfdata.plot(kind="bar", title=dcnrfpath)
             plt.tight_layout()
             plt.show()
 
-    return result
+    return dcnr
+
+
+def dcnr2xlsx(read: list[list[str]] | list[dict[str, pd.DataFrame]], save: str) -> None:
+    workbook = []
+    if isinstance(read[0], dict):
+        workbook = read
+    else:
+        for dcnrflist in read:
+            dcnr = {}
+            for dcnrfpath in dcnrflist:
+                dcnr[dcnrfpath] = pd.read_csv(dcnrfpath, index_col=0)
+            workbook.append(dcnr)
+    with pd.ExcelWriter(save) as writer:
+        for sheet_i, dcnr in enumerate(workbook, 1):
+            buffer = []
+            for dcnrfpath, dcnrfdata in dcnr.items():
+                dcnrfname = os.path.basename(dcnrfpath).split(".")[0]
+                buffer.append(dcnrfdata.stack().rename(dcnrfname))
+            pd.concat(buffer, axis=1).to_excel(writer, sheet_name=f"Group {sheet_i}")
