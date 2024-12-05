@@ -108,8 +108,8 @@ logflist = ['11121980.24O', '11131980.24O']
 dcnrflist = ['11121980.csv', '11131980.csv']
 start = datetime.datetime(2024, 7, 16, 9, 0, 0)
 end = datetime.datetime(2024, 7, 16, 10, 0, 0)
-interval = 5  # doctest: +SKIP
-ele_cut = 20.0  # doctest: +SKIP
+interval = 5
+ele_cut = 20.0
 cnrdiff.log2cnr(logflist, save=False, start=start, end=end, interval=interval, ele_cut=ele_cut)
 cnrdiff.cnr2dcnr(cnrflist, save=dcnrflist, plot=True, how='MAX', by='SYS')
 ```
@@ -117,5 +117,5 @@ cnrdiff.cnr2dcnr(cnrflist, save=dcnrflist, plot=True, how='MAX', by='SYS')
 ```python
 >>> dcnrflist1 = ['0002295h.log.cnr.dcnr', '0005295h.log.cnr.dcnr', '0041295h.log.cnr.dcnr']
 >>> dcnrflist2 = ['11121980.csv', '11131980.csv']
->>> cnrdiff.dcnr2xlsx([dcnrflist1, dcnrflist2], save='summary.xlsx')
+>>> cnrdiff.dcnr2xlsx([dcnrflist1, dcnrflist2], 'summary.xlsx')
 ```
