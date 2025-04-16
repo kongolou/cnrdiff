@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainwindowXqXJuu.ui'
+## Form generated from reading UI file 'mainwindowhaByxU.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(640, 480)
         icon = QIcon()
-        icon.addFile(u"cnrdiff-logo.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u"cnrdiff-logo.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -95,6 +95,7 @@ class Ui_MainWindow(object):
         self.dateTimeEditEndTime.setGeometry(QRect(110, 270, 211, 31))
         self.checkBoxElevationCutoff = QCheckBox(self.groupBoxInput)
         self.checkBoxElevationCutoff.setObjectName(u"checkBoxElevationCutoff")
+        self.checkBoxElevationCutoff.setEnabled(False)
         self.checkBoxElevationCutoff.setGeometry(QRect(340, 270, 121, 31))
         self.checkBoxEndTime = QCheckBox(self.groupBoxInput)
         self.checkBoxEndTime.setObjectName(u"checkBoxEndTime")

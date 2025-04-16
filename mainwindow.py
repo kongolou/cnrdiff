@@ -1,7 +1,6 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox
+from PySide6.QtWidgets import QMainWindow, QFileDialog, QMessageBox
 from PySide6.QtCore import QDateTime, Slot
 from ui_mainwindow import Ui_MainWindow
-import sys
 import os
 import cnrdiff
 
@@ -46,9 +45,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @Slot()
     def on_comboBoxInputFileType_currentIndexChanged(self):
-        self.checkBoxElevationCutoff.setEnabled(
-            self.comboBoxInputFileType.currentText() == "BNC QC LOG"
-        )
+        if self.comboBoxInputFileType.currentText() == "BNC QC LOG":
+            self.checkBoxElevationCutoff.setEnabled(True)
+        else:
+            self.checkBoxElevationCutoff.setChecked(False)
+            self.checkBoxElevationCutoff.setEnabled(False)
 
     @Slot()
     def on_checkBoxStartTime_toggled(self):
@@ -172,10 +173,3 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.groupBoxInput.setEnabled(True)
         self.groupBoxOutput.setEnabled(True)
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    mainwindow = MainWindow()
-    mainwindow.show()
-    sys.exit(app.exec())

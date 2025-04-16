@@ -1,6 +1,7 @@
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication
 from mainwindow import MainWindow
 import sys
+import pyi_splash
 
 
 def main():
@@ -11,4 +12,5 @@ def main():
 
 
 if __name__ == '__main__':
+    pyi_splash.close()
     main()

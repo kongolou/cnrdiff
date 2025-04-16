@@ -16,7 +16,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>cnrdiff-logo.svg</normaloff>cnrdiff-logo.svg</iconset>
+    <normaloff>cnrdiff-logo.png</normaloff>cnrdiff-logo.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBoxInput">
@@ -265,6 +265,9 @@
      </property>
     </widget>
     <widget class="QCheckBox" name="checkBoxElevationCutoff">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>340</x>
