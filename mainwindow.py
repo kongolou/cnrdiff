@@ -14,18 +14,41 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.dateTimeEditStartTime.setDateTime(QDateTime.currentDateTimeUtc())
         self.dateTimeEditEndTime.setDateTime(QDateTime.currentDateTimeUtc())
 
+    def shouldPushButtonSelectEnabled(self):
+        self.pushButtonSelect.setEnabled(
+            self.checkBoxExportCNR.isChecked()
+            or self.checkBoxExportDCNR.isChecked()
+            or self.checkBoxExportXLSX.isChecked()
+        )
+
+    def shouldPushButtonProcessEnabled(self):
+        self.pushButtonProcess.setEnabled(
+            self.listWidgetInput.count() > 0
+            and (
+                self.checkBoxPlotDCNR.isChecked()
+                or (
+                    self.pushButtonSelect.isEnabled()
+                    and self.lineEditOutputDirectory.text() != ""
+                )
+            )
+        )
+
     @Slot()
     def on_pushButtonAddFile_clicked(self):
         fpath, _ = QFileDialog.getOpenFileName(self, "Select File")
         self.listWidgetInput.addItem(fpath)
+        self.shouldPushButtonProcessEnabled()
 
     @Slot()
     def on_pushButtonRemoveFile_clicked(self):
         self.listWidgetInput.takeItem(self.listWidgetInput.currentRow())
+        self.shouldPushButtonProcessEnabled()
 
     @Slot()
     def on_comboBoxInputFileType_currentIndexChanged(self):
-        self.checkBoxElevationCutoff.setEnabled(self.comboBoxInputFileType.currentText() == "BNC QC LOG")
+        self.checkBoxElevationCutoff.setEnabled(
+            self.comboBoxInputFileType.currentText() == "BNC QC LOG"
+        )
 
     @Slot()
     def on_checkBoxStartTime_toggled(self):
@@ -41,27 +64,32 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @Slot()
     def on_checkBoxElevationCutoff_toggled(self):
-        self.doubleSpinBoxElevationCutoff.setEnabled(self.checkBoxElevationCutoff.isChecked())
-
-    def shouldOutputDirectoryEnabled(self):
-        if self.checkBoxExportCNR.isChecked() or self.checkBoxExportDCNR.isChecked() or self.checkBoxExportXLSX.isChecked():
-            self.lineEditOutputDirectory.setEnabled(True)
-            self.pushButtonSelect.setEnabled(True)
-        else:
-            self.lineEditOutputDirectory.setEnabled(False)
-            self.pushButtonSelect.setEnabled(False)
+        self.doubleSpinBoxElevationCutoff.setEnabled(
+            self.checkBoxElevationCutoff.isChecked()
+        )
 
     @Slot()
     def on_checkBoxExportCNR_toggled(self):
-        self.shouldOutputDirectoryEnabled()
+        self.shouldPushButtonSelectEnabled()
+        self.shouldPushButtonProcessEnabled()
 
     @Slot()
     def on_checkBoxExportDCNR_toggled(self):
-        self.shouldOutputDirectoryEnabled()
+        self.shouldPushButtonSelectEnabled()
+        self.shouldPushButtonProcessEnabled()
+
+    @Slot()
+    def on_checkBoxPlotDCNR_toggled(self):
+        self.shouldPushButtonProcessEnabled()
 
     @Slot()
     def on_checkBoxExportXLSX_toggled(self):
-        self.shouldOutputDirectoryEnabled()
+        self.shouldPushButtonSelectEnabled()
+        self.shouldPushButtonProcessEnabled()
+
+    @Slot()
+    def on_lineEditOutputDirectory_textChanged(self):
+        self.shouldPushButtonProcessEnabled()
 
     @Slot()
     def on_pushButtonSelect_clicked(self):
@@ -70,10 +98,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     @Slot()
     def on_pushButtonProcess_clicked(self):
-        if not (self.pushButtonSelect.isEnabled() or self.checkBoxPlotDCNR.isChecked()):
-            return
-
-        self.pushButtonProcess.setEnabled(False)
+        self.groupBoxInput.setEnabled(False)
+        self.groupBoxOutput.setEnabled(False)
 
         try:
             start = (
@@ -105,7 +131,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     os.path.join(self.lineEditOutputDirectory.text(), inpfname + ".cnr")
                 )
                 dcnrflist.append(
-                    os.path.join(self.lineEditOutputDirectory.text(), inpfname + ".cnr.dcnr")
+                    os.path.join(
+                        self.lineEditOutputDirectory.text(), inpfname + ".cnr.dcnr"
+                    )
                 )
 
             xlsxfpath = os.path.join(
@@ -137,12 +165,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 cnrdiff.dcnr2xlsx([dcnr], xlsxfpath)
 
         except Exception as e:
-            QMessageBox.warning(None, "Error", f"Error: {str(e)}")
+            QMessageBox.critical(self, "Error", str(e))
 
         else:
-            QMessageBox.information(None, "Success", "Process completed successfully.")
+            QMessageBox.information(self, "Success", "Process completed successfully.")
 
-        self.pushButtonProcess.setEnabled(True)
+        self.groupBoxInput.setEnabled(True)
+        self.groupBoxOutput.setEnabled(True)
 
 
 if __name__ == "__main__":

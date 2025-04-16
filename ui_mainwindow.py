@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainwindowtkrDnH.ui'
+## Form generated from reading UI file 'mainwindowXqXJuu.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -130,6 +130,7 @@ class Ui_MainWindow(object):
         self.pushButtonSelect.setGeometry(QRect(500, 70, 81, 31))
         self.pushButtonProcess = QPushButton(self.groupBoxOutput)
         self.pushButtonProcess.setObjectName(u"pushButtonProcess")
+        self.pushButtonProcess.setEnabled(False)
         self.pushButtonProcess.setGeometry(QRect(500, 30, 81, 31))
         MainWindow.setCentralWidget(self.centralwidget)
         QWidget.setTabOrder(self.listWidgetInput, self.comboBoxInputFileType)
