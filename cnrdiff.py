@@ -7,7 +7,7 @@ Include CNR file format conversion, difference calculation and plotting.
 **Lead Programmer:**
     Sheng Guoliang <shengguoliang@sinognss.com>
 
-**Contributors:**
+**Contributor:**
     Yang Fawang <yangfawang@sinognss.com>
 
 # History
