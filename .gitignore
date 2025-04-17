@@ -1,7 +1,6 @@
 __pycache__/
 build/
 dist/
-log/
 pymakelist.ps1
 *.spec
 *.ts
