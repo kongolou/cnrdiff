@@ -35,5 +35,5 @@ The following examples use BNC QC LOG files. Note that RINEX V3 OBS files are al
 
 from cnrdiff.cnrdiff import log2cnr, rnx2cnr, cnr2dcnr, dcnr2xlsx
 
-__version__ = "1.2.0"
+__version__ = "1.3"
 __all__ = ["log2cnr", "rnx2cnr", "cnr2dcnr", "dcnr2xlsx"]

@@ -19,6 +19,22 @@ Include CNR file format conversion, difference calculation and plotting.
 | 2024-11-20 | 1.0 Released |
 | 2024-11-29 | 1.1 Released |
 | 2024-12-05 | 1.2 Released |
+| 2025-04-17 | 1.3 Released |
+
+## Installation
+
+### Using pip
+
+```bash
+pip install cnrdiff
+```
+
+### Using conda
+
+```bash
+conda env create -f environment.yml
+conda activate cnrdiff
+```
 
 # Examples
 The following examples use BNC QC LOG files. Note that RINEX V3 OBS files are also supported.

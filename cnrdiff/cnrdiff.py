@@ -322,7 +322,7 @@ def cnr2dcnr(
     # plot dcnr
     if not isinstance(plot, bool):
         for dcnrfpath, dcnrfdata in dcnr.items():
-            dcnrfdata.plot(king="bar", title=dcnrfpath)
+            dcnrfdata.plot(kind="bar", title=dcnrfpath)
             plt.savefig(dcnrfpath + ".png")
     elif plot:
         for dcnrfpath, dcnrfdata in dcnr.items():
