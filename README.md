@@ -4,6 +4,8 @@ A library used to compare signal-to-noise ratio.
 
 Include CNR file format conversion, difference calculation and plotting.
 
+*There is a GUI version available for Windows users. See [Release](https://github.com/kongolou/cnrdiff/releases).*
+
 **Lead Programmer:**
 - Sheng Guoliang <shengguoliang@sinognss.com>
 
@@ -14,16 +16,19 @@ Include CNR file format conversion, difference calculation and plotting.
 ## History
 | Date       | Version Info |
 |------------|--------------|
-| 2024-11-20 | Release 1.0  |
-| 2024-11-29 | Release 1.1  |
-| 2024-12-05 | Release 1.2  |
+| 2024-11-20 | 1.0 Released |
+| 2024-11-29 | 1.1 Released |
+| 2024-12-05 | 1.2 Released |
 
 # Examples
+The following examples use BNC QC LOG files. Note that RINEX V3 OBS files are also supported.
+
 ## Convert to CNR file
 ```python
 cnrs = cnrdiff.log2cnr(['0002295h.log'])
 print(cnrs['0002295h.log.cnr'])
 ```
+
 **Output:**
 ```
                          0     1    2      3    4     5    6     7     8     9     10    11
@@ -41,6 +46,7 @@ print(cnrs['0002295h.log.cnr'])
 
 [154219 rows x 12 columns]
 ```
+
 ## Calculate difference with default parameters (mean of all epochs)
 ```python
 logflist = ['0002295h.log', '0005295h.log', '0041295h.log']
@@ -48,6 +54,7 @@ cnrs = cnrdiff.log2cnr(logflist)
 dcnrs = cnrdiff.cnr2dcnr(cnrs)
 print(dcnrs['0005295h.log.cnr.dcnr'])
 ```
+
 **Output:**
 ```
           S1C       S1X       S2C       S2I       S2P       S6I       S7I       S2W       S5I       S5X       S7X
@@ -102,6 +109,7 @@ R17 -0.660695       NaN       NaN       NaN -0.220414       NaN       NaN       
 R18 -2.040590       NaN       NaN       NaN  0.568744       NaN       NaN       NaN       NaN       NaN       NaN
 R24 -1.121621       NaN       NaN       NaN -0.724670       NaN       NaN       NaN       NaN       NaN       NaN
 ```
+
 ## Calculate difference with custom parameters
 ```python
 logflist = ['11121980.24O', '11131980.24O']
@@ -113,6 +121,7 @@ ele_cut = 20.0
 cnrdiff.log2cnr(logflist, save=False, start=start, end=end, interval=interval, ele_cut=ele_cut)
 cnrdiff.cnr2dcnr(cnrflist, save=dcnrflist, plot=True, how='MAX', by='SYS')
 ```
+
 ## Convert DCNR to XLSX file
 ```python
 >>> dcnrflist1 = ['0002295h.log.cnr.dcnr', '0005295h.log.cnr.dcnr', '0041295h.log.cnr.dcnr']
