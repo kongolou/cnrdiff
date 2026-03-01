@@ -7,9 +7,8 @@ Include CNR file format conversion, difference calculation and plotting.
 **Lead Programmer:**
     Sheng Guoliang <shengguoliang@sinognss.com>
 
-**Contributors:**
+**Contributor:**
     Yang Fawang <yangfawang@sinognss.com>
-    Wang Xiaobing <wangxiaobing@sinognss.com>
 
 # History
 |            |             |
@@ -17,11 +16,12 @@ Include CNR file format conversion, difference calculation and plotting.
 | 2024-11-20 | Release 1.0 |
 | 2024-11-29 | Release 1.1 |
 | 2024-12-05 | Release 1.2 |
+| 2025-04-17 | Release 1.3 |
 
 # Examples
 ## Convert to CNR file
->>> cnrs = cnrdiff.log2cnr(['0002295h.log'])  # doctest: +SKIP
->>> print(cnrs['0002295h.log.cnr'])  # doctest: +SKIP
+>>> cnrs = cnrdiff.log2cnr(['0002295h.log'])
+>>> print(cnrs['0002295h.log.cnr'])
                          0     1    2      3    4     5    6     7     8     9     10    11
 0       2024-10-21T08:00:00     1  G03   0.00  S1C  40.0  S2C  45.0   S2W  40.0   S5I  46.0
 1       2024-10-21T08:00:00     1  G16   0.00  S1C  44.0  S2W  34.0  None   NaN  None   NaN
@@ -38,10 +38,10 @@ Include CNR file format conversion, difference calculation and plotting.
 [154219 rows x 12 columns]
 
 ## Calculate difference with default parameters (mean of all epochs)
->>> logflist = ['0002295h.log', '0005295h.log', '0041295h.log']  # doctest: +SKIP
->>> cnrs = cnrdiff.log2cnr(logflist)  # doctest: +SKIP
->>> dcnrs = cnrdiff.cnr2dcnr(cnrs)  # doctest: +SKIP
->>> print(dcnrs['0005295h.log.cnr.dcnr'])  # doctest: +SKIP
+>>> logflist = ['0002295h.log', '0005295h.log', '0041295h.log']
+>>> cnrs = cnrdiff.log2cnr(logflist)
+>>> dcnrs = cnrdiff.cnr2dcnr(cnrs)
+>>> print(dcnrs['0005295h.log.cnr.dcnr'])
           S1C       S1X       S2C       S2I       S2P       S6I       S7I       S2W       S5I       S5X       S7X
 PRN
 C01       NaN       NaN       NaN -0.940572       NaN  0.085532 -0.843655       NaN       NaN       NaN       NaN
@@ -95,19 +95,19 @@ R18 -2.040590       NaN       NaN       NaN  0.568744       NaN       NaN       
 R24 -1.121621       NaN       NaN       NaN -0.724670       NaN       NaN       NaN       NaN       NaN       NaN
 
 ## Calculate difference with custom parameters
->>> logflist = ['11121980.24O', '11131980.24O']  # doctest: +SKIP
->>> dcnrflist = ['11121980.csv', '11131980.csv']  # doctest: +SKIP
->>> start = datetime.datetime(2024, 7, 16, 9, 0, 0)  # doctest: +SKIP
->>> end = datetime.datetime(2024, 7, 16, 10, 0, 0)  # doctest: +SKIP
->>> interval = 5  # doctest: +SKIP
->>> ele_cut = 20.0  # doctest: +SKIP
->>> cnrdiff.log2cnr(logflist, save=False, start=start, end=end, interval=interval, ele_cut=ele_cut)  # doctest: +SKIP
->>> cnrdiff.cnr2dcnr(cnrflist, save=dcnrflist, plot=True, how='MAX', by='SYS')  # doctest: +SKIP
+>>> logflist = ['11121980.24O', '11131980.24O']
+>>> dcnrflist = ['11121980.csv', '11131980.csv']
+>>> start = datetime.datetime(2024, 7, 16, 9, 0, 0)
+>>> end = datetime.datetime(2024, 7, 16, 10, 0, 0)
+>>> interval = 5
+>>> ele_cut = 20.0
+>>> cnrdiff.log2cnr(logflist, save=False, start=start, end=end, interval=interval, ele_cut=ele_cut)
+>>> cnrdiff.cnr2dcnr(cnrflist, save=dcnrflist, plot=True, how='MAX', by='SYS')
 
 ## Convert DCNR to XLSX file
->>> dcnrflist1 = ['0002295h.log.cnr.dcnr', '0005295h.log.cnr.dcnr', '0041295h.log.cnr.dcnr']  # doctest: +SKIP
+>>> dcnrflist1 = ['0002295h.log.cnr.dcnr', '0005295h.log.cnr.dcnr', '0041295h.log.cnr.dcnr']
 >>> dcnrflist2 = ['11121980.csv', '11131980.csv']
->>> cnrdiff.dcnr2xlsx([dcnrflist1, dcnrflist2], save='summary.xlsx')  # doctest: +SKIP
+>>> cnrdiff.dcnr2xlsx([dcnrflist1, dcnrflist2], save='summary.xlsx')
 """
 
 import datetime
@@ -117,7 +117,7 @@ import matplotlib.pyplot as plt
 from typing import Literal
 
 
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 
 
 def log2cnr(
@@ -437,7 +437,7 @@ def cnr2dcnr(
     # plot dcnr
     if not isinstance(plot, bool):
         for dcnrfpath, dcnrfdata in dcnr.items():
-            dcnrfdata.plot(king="bar", title=dcnrfpath)
+            dcnrfdata.plot(kind="bar", title=dcnrfpath)
             plt.savefig(dcnrfpath + ".png")
     elif plot:
         for dcnrfpath, dcnrfdata in dcnr.items():

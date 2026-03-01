@@ -1,11 +1,16 @@
-from PySide6.QtWidgets import QApplication, QMainWindow
-import mainwindow as ui
+from PySide6.QtWidgets import QApplication
+from mainwindow import MainWindow
 import sys
+import pyi_splash
 
-if __name__ == "__main__":
+
+def main():
     app = QApplication(sys.argv)
-    window = QMainWindow()
-    ui = ui.Ui_MainWindow()
-    ui.setupUi(window)
-    window.show()
+    mainwindow = MainWindow()
+    mainwindow.show()
     sys.exit(app.exec())
+
+
+if __name__ == '__main__':
+    pyi_splash.close()
+    main()

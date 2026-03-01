@@ -1,0 +1,6 @@
+__pycache__/
+build/
+dist/
+pymakelist.ps1
+*.spec
+*.ts
