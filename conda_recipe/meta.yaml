@@ -1,0 +1,33 @@
+package:
+  name: cnrdiff
+  version: 2.1.2
+
+source:
+  path: ..
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  entry_points:
+    - cnrdiff = cnrdiff.__main__:main
+
+requirements:
+  host:
+    - python >=3.10
+    - pip
+    - setuptools
+  run:
+    - python >=3.10
+    - pandas
+    - pyrtcm
+
+test:
+  imports:
+    - cnrdiff
+  commands:
+    - cnrdiff --help
+
+about:
+  home: https://github.com/kongolou/cnrdiff
+  license: MIT
+  summary: A library used to compare signal-to-noise ratio.

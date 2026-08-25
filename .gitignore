@@ -1,4 +1,14 @@
+.ruff_cache/
+playground/
+test/
+
+# Python-generated files
 __pycache__/
-.venv/
-*.egg-info/
+*.py[oc]
+build/
 dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv

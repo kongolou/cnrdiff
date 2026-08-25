@@ -1,14 +1,14 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "cnrdiff"
-version = "1.3.0"
-description = "A library used to compare signal-to-noise ratio"
+dynamic = ["version"]
+description = "A library used to compare signal-to-noise ratio.（卫星载噪比差值比较）"
 readme = "README.md"
-license = {text = "MIT"}
 requires-python = ">=3.10"
+license = {text = "MIT"}
 authors = [
     {name = "Sheng Guoliang", email = "shengguoliang@sinognss.com"},
     {name = "Yang Fawang", email = "yangfawang@sinognss.com"},
@@ -25,15 +25,12 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
-    "pandas>=2.0.0",
-    "matplotlib>=3.7.0",
+    "pandas",
+    "pyrtcm",
 ]
 
-[project.urls]
-Homepage = "https://github.com/sinognss/cnrdiff"
-Repository = "https://github.com/sinognss/cnrdiff"
-Issues = "https://github.com/sinognss/cnrdiff/issues"
+[project.scripts]
+cnrdiff = "cnrdiff.__main__:main"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["cnrdiff*"]
+[tool.setuptools.dynamic]
+version = {attr = "cnrdiff.__version__"}
