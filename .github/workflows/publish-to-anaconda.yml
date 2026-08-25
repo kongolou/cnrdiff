@@ -36,4 +36,4 @@ jobs:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           FILE=$(conda build conda_recipe/ --output)
-          anaconda upload "$FILE"
+          "$(conda info --base)/bin/anaconda" upload "$FILE"
