@@ -25,8 +25,8 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
-    "pandas",
-    "pyrtcm",
+    "pandas>=2.0.0",
+    "pyrtcm>=1.0.0",
 ]
 
 [project.scripts]

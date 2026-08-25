@@ -18,8 +18,8 @@ requirements:
     - setuptools
   run:
     - python >=3.10
-    - pandas
-    - pyrtcm
+    - pandas >=2.0.0
+    - pyrtcm >=1.0.0
 
 test:
   imports:
